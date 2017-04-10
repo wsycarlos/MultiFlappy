@@ -39,7 +39,7 @@ namespace Bird
         {
             try
             {
-                transport = new TSocket("localhost", 9090);
+                transport = new TSocket("25.89.114.214", 9090);
                 protocol = new TBinaryProtocol(transport);
                 client = new Flappy.Client(protocol);
 
