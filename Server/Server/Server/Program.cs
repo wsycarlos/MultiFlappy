@@ -53,17 +53,20 @@ namespace Bird
 
         public void move(int ses, Place p)
         {
-            if(statusMap == null)
+            if (statusMap == null)
             {
                 statusMap = new Dictionary<int, Place>();
             }
-            if (statusMap.ContainsKey(ses))
+            lock (statusMap)
             {
-                statusMap[ses] = p;
-            }
-            else
-            {
-                statusMap.Add(ses, p);
+                if (statusMap.ContainsKey(ses))
+                {
+                    statusMap[ses] = p;
+                }
+                else
+                {
+                    statusMap.Add(ses, p);
+                }
             }
         }
 
@@ -83,16 +86,19 @@ namespace Bird
                 return crashMap;
             }
         }
-        
+
         public void crash(int ses)
         {
-            if(crashMap == null)
+            if (crashMap == null)
             {
                 crashMap = new List<int>();
             }
-            if (!crashMap.Contains(ses))
+            lock (crashMap)
             {
-                crashMap.Add(ses);
+                if (!crashMap.Contains(ses))
+                {
+                    crashMap.Add(ses);
+                }
             }
         }
     }
